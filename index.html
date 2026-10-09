@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mis inversiones</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7c3aed">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--a1:#7c3aed;--a2:#14b8a6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f1edff;--card:#fff;--tx:#1d1a33;--mu:#8581a3;--bd:#ebe7fb;--soft:#f6f3ff;--sa:#8b5cf6;--us:#14b8a6;--ok:#16a34a;--ko:#e11d48;--shd:0 8px 24px rgba(109,40,217,.12)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0d1a;--card:#1b1830;--tx:#f2f0fc;--mu:#a5a1c0;--bd:#2c2846;--soft:#242040;--sa:#a78bfa;--us:#2dd4bf;--ok:#4ade80;--ko:#fb7185;--shd:0 8px 24px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0f0d1a;--card:#1b1830;--tx:#f2f0fc;--mu:#a5a1c0;--bd:#2c2846;--soft:#242040;--sa:#a78bfa;--us:#2dd4bf;--ok:#4ade80;--ko:#fb7185;--shd:0 8px 24px rgba(0,0,0,.35)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0 auto;color:var(--tx);font:16px system-ui,sans-serif;padding:16px 14px 130px;max-width:560px;background:radial-gradient(circle at 12% 0%,color-mix(in srgb,var(--a1) 25%,transparent),transparent 42%),radial-gradient(circle at 100% 35%,color-mix(in srgb,var(--a2) 20%,transparent),transparent 40%),var(--bg);background-attachment:fixed;min-height:100vh}
+h1{font-size:24px;margin:2px 0}h3{margin:0 0 6px;font-size:15px}
+.top{margin:6px 4px 14px}.top small{color:var(--mu);text-transform:capitalize;font-size:13px;display:block}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;border-radius:34px;padding:22px;margin-bottom:6px;box-shadow:0 14px 30px color-mix(in srgb,var(--a1) 40%,transparent);transition:background .6s}
+.hero i{position:absolute;border-radius:50%;background:rgba(255,255,255,.15)}.b1{width:140px;height:140px;right:-35px;top:-45px}.b2{width:76px;height:76px;right:60px;bottom:-28px}
+.hero small,.hero .big,.hero .pill{position:relative}.hero small{opacity:.9}.big{font-size:38px;font-weight:800;margin:2px 0 10px}
+.pill{display:inline-block;background:rgba(255,255,255,.22);padding:6px 14px;border-radius:99px;font-size:13px}
+.sec{display:flex;justify-content:space-between;align-items:center;margin:20px 6px 10px;font-weight:800;font-size:16px}.sec a{color:var(--a1);font-size:13px;font-weight:600}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:28px;padding:16px;margin-bottom:12px;box-shadow:var(--shd)}.g2 .c{margin:0}
+.c small{color:var(--mu);display:block;font-size:12px}.c b{font-size:19px}.l{font-size:13px;margin-top:6px;color:var(--mu);line-height:1.6}
+.ib{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:21px;margin-bottom:8px}
+.sa .ib{background:rgba(139,92,246,.2)}.us .ib{background:rgba(20,184,166,.22)}
+.pos{color:var(--ok)}.neg{color:var(--ko)}
+input,textarea{width:100%;padding:13px 16px;margin:5px 0;border:1px solid var(--bd);border-radius:20px;background:var(--soft);color:var(--tx);font-size:16px}
+button{padding:13px 18px;border:0;border-radius:99px;background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;font-size:15px;font-weight:700}
+button.g{background:transparent;color:var(--mu);border:1px solid var(--bd)}
+.seg{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:99px;margin:8px 0}.seg button{flex:1;background:transparent;color:var(--mu);padding:10px 6px;font-weight:600}
+.seg button.on{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;box-shadow:0 4px 12px color-mix(in srgb,var(--a1) 35%,transparent)}
+.seg button.on.c1{background:linear-gradient(135deg,#22c55e,#15803d)}.seg button.on.v1{background:linear-gradient(135deg,#fb923c,#ea580c)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.hid{display:none}.pv{background:var(--soft);border-radius:22px;padding:12px 16px;margin:10px 0;font-size:15px;line-height:1.6}
+.it .t{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.it .s{color:var(--mu);font-size:14px;margin-top:6px;line-height:1.6}
+.tag{font-size:11px;padding:3px 10px;border-radius:99px;color:#fff;margin-right:6px;font-weight:700}
+.tag.SALDO{background:var(--sa)}.tag.USDT{background:var(--us)}
+.kp{font-size:32px;font-weight:800}.d{font-size:13px}
+.l input{display:inline;width:66px;padding:4px 10px;margin:0;border-radius:99px}
+.bn{position:fixed;left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px));max-width:532px;margin:auto;background:var(--card);border:1px solid var(--bd);border-radius:99px;box-shadow:0 12px 32px rgba(60,30,120,.28);display:flex;justify-content:space-around;align-items:center;padding:8px 6px}
+.bn button{background:transparent;color:var(--mu);padding:2px 4px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10px;min-width:52px;font-weight:600}
+.bn button span{font-size:20px;width:42px;height:32px;display:grid;place-items:center;border-radius:99px}
+.bn button.on{color:var(--a1)}.bn button.on span{background:color-mix(in srgb,var(--a1) 20%,transparent)}
+.bn .mid{margin-top:-34px;padding:0}.bn .mid span{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;font-size:30px;box-shadow:0 8px 20px color-mix(in srgb,var(--a1) 50%,transparent);border:5px solid var(--bg)}
+.bn .mid.on span{background:linear-gradient(135deg,var(--a1),var(--a2))}
+.top{display:flex;justify-content:space-between;align-items:center}
+.eye{width:46px;height:46px;padding:0;border-radius:50%;background:var(--card);border:1px solid var(--bd);font-size:20px;box-shadow:var(--shd)}
+.mood{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:600;margin-top:14px}
+.bar{height:10px;background:rgba(255,255,255,.28);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:#fff;border-radius:99px;transition:width .5s}
+.hero .mood,.hero .bar{position:relative}
+.ib{background:var(--soft)}
+.pal{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.sw{width:42px;height:42px;padding:0;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 2px var(--bd)}.sw.sel{box-shadow:0 0 0 3px var(--tx)}
+input[type=color]{width:44px;height:44px;padding:0;margin:0;border-radius:50%;border:3px solid var(--bd);background:none;flex:none}
+.lvr{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+body.priv :is(.big,.kp,.pill b,.mood,#vi .c b,#vi .l,.it .s,.it .t,.pv,#rs .c b,#rs .l,#rs svg){filter:blur(7px)}
+</style></head><body>
+<div class="top"><div><small id="dt"></small><h1 id="tt">💸 Mis inversiones</h1></div><button class="eye" id="eye" onclick="tpv()">👁️</button></div>
+<div id="vi">
+<div class="hero"><i class="b1"></i><i class="b2"></i><small>Ganancia total</small><div class="big" id="gan">0 CUP</div><span class="pill">Rinde <b id="pct">0%</b></span><div class="mood"><span id="md"></span><span id="mp"></span></div><div class="bar"><span id="mb"></span></div></div>
+<div class="sec">Mi inventario</div>
+<div class="g2">
+<div class="c sa"><div class="ib">📱</div><small>SALDO</small><b id="hq">0</b><div class="l">Invertido: <span id="hc">0</span> CUP<br>Costo prom.: <span id="hp">0</span><br>Saldo hoy ≈ <input id="sh" type="number" inputmode="decimal" oninput="setSh()"><br>Ganancia aprox.: <b id="ha">0</b></div></div>
+<div class="c us"><div class="ib">💵</div><small>USDT</small><b id="uq">0</b><div class="l">Invertido: <span id="uc">0</span> CUP<br>Costo prom.: <span id="up">0</span><br>USDT hoy ≈ <input id="uh" type="number" inputmode="decimal" oninput="setUh()"><br>Ganancia aprox.: <b id="ua">0</b></div></div></div>
+<div class="sec">Últimos movimientos <a onclick="go('h')">Ver todo</a></div>
+<div id="rc"></div>
+</div>
+<div id="vr" class="hid"><div class="seg" id="pc"><button onclick="per('d')">Hoy</button><button class="on" onclick="per('w')">Semana</button><button onclick="per('m')">Mes</button><button onclick="per('t')">Todo</button></div><div id="rs"></div></div>
+
+<div id="vg" class="hid"><div class="c" oninput="prev()">
+<div class="seg" id="sM"><button class="on c1" onclick="setM('c')">🛒 Compré</button><button class="v1" onclick="setM('v')">💰 Vendí</button></div>
+<div class="seg" id="sA"><button class="on" onclick="setA('SALDO')">📱 SALDO</button><button onclick="setA('USDT')">💵 USDT</button></div>
+<input id="fq" type="number" inputmode="decimal" placeholder="Cantidad (ej. 1000 de saldo, 0.75 USDT)">
+<div id="bC">
+ <div class="seg hid" id="sPC"><button class="on" onclick="setPC('C')">Pagué en CUP</button><button onclick="setPC('S')">Pagué con saldo</button></div>
+ <div class="seg" id="sPM"><button class="on" onclick="setPM('t')">Total en CUP</button><button onclick="setPM('u')">Por unidad</button></div>
+ <input id="fpu" type="number" inputmode="decimal" placeholder="Precio por unidad en CUP (ej. 3.6)">
+ <input id="fps" class="hid" type="number" inputmode="decimal" placeholder="¿Cuánto saldo gasté? (ej. 250)">
+</div>
+<div id="bV" class="hid">
+ <div class="seg" id="sVC"><button class="on" onclick="setVC('C')">Cobré en CUP</button><button onclick="setVC('S')">Cobré en saldo</button></div>
+ <div class="seg hid" id="sVM"><button class="on" onclick="setVM('t')">Total en CUP</button><button onclick="setVM('u')">Por unidad</button></div>
+ <input id="fvm" type="number" inputmode="decimal" placeholder="Precio por unidad en CUP (ej. 4.2)">
+ <input id="fvs" class="hid" type="number" inputmode="decimal" placeholder="Saldo recibido (ej. 250)">
+</div>
+<div class="row"><input id="fn" placeholder="Nota (opcional)"><input id="fd" type="date"></div>
+<div class="pv" id="pv"></div>
+<button onclick="add()" style="width:100%">Guardar</button>
+</div></div>
+
+<div id="vh" class="hid"><div class="seg" id="ch"><button class="on" onclick="flt('')">Todo</button><button onclick="flt('SALDO')">SALDO</button><button onclick="flt('USDT')">USDT</button></div><div id="list"></div></div>
+
+
+
+<div id="va" class="hid">
+<div class="c"><div class="ib">📱</div><h3>Guardado en tu teléfono</h3><div class="l" id="cl">Funciona sin internet. Tus datos se quedan en este teléfono, así que descarga un respaldo de vez en cuando.</div></div>
+<div class="c"><div class="ib">🎨</div><h3>Color de la app</h3>
+<div class="seg" id="sTM"><button onclick="setTM('fijo')">Un color fijo</button><button onclick="setTM('auto')">Cambia con mis ventas</button></div>
+<div id="pFijo"><div class="pal" id="pal"></div><div class="lvr"><span>Otro color a mi gusto</span><input type="color" id="cc" oninput="pickC(this.value)"></div></div>
+<div id="pAuto" class="hid"><div class="l">Pon tu meta de ganancia por día y la app cambia de color según cómo vayas hoy. Puedes cambiar cada color.</div>
+<input id="meta" type="number" inputmode="decimal" placeholder="Meta diaria en CUP (ej. 1000)" oninput="setMeta()"><div class="lvr"><span>😴 Sin ventas aún</span><input type="color" id="lc_sin" oninput="lvc('sin',this.value)"></div><div class="lvr"><span>⚠️ En pérdida</span><input type="color" id="lc_perd" oninput="lvc('perd',this.value)"></div><div class="lvr"><span>🐢 Día flojo (menos de la mitad de la meta)</span><input type="color" id="lc_flojo" oninput="lvc('flojo',this.value)"></div><div class="lvr"><span>👍 Buen día (más de la mitad)</span><input type="color" id="lc_bueno" oninput="lvc('bueno',this.value)"></div><div class="lvr"><span>🔥 Día brutal (meta cumplida)</span><input type="color" id="lc_top" oninput="lvc('top',this.value)"></div></div></div>
+<div class="c"><div class="ib">🌗</div><h3>Tema</h3><div class="seg" id="sTD"><button onclick="setTD('auto')">Automático</button><button onclick="setTD('light')">Claro</button><button onclick="setTD('dark')">Oscuro</button></div></div>
+<div class="c"><div class="ib">🏷️</div><h3>Nombre de mi negocio</h3><input id="nm" placeholder="Mis inversiones" oninput="setNm()"></div>
+<div class="c"><div class="ib">🙈</div><h3>Montos</h3><div class="l">También puedes tocar el 👁️ de arriba en Inicio para ocultar los números cuando alguien mire tu pantalla.</div><div class="seg" id="sPV"><button onclick="setPV(false)">Visibles</button><button onclick="setPV(true)">Ocultos</button></div></div>
+<div class="c"><div class="ib">🔒</div><h3>Respaldo</h3><div class="l">Tus datos viven solo en este teléfono. Descarga el archivo de respaldo cada cierto tiempo y guárdalo (por ejemplo, mándatelo por WhatsApp).</div><textarea id="ta" rows="5" placeholder="Aquí aparece tu respaldo. Para restaurar, pégalo aquí."></textarea><div class="row"><button class="g" onclick="bk()">Generar texto</button><button onclick="rs2()">Restaurar</button></div>
+<div class="row" style="margin-top:8px"><button onclick="dl()">⬇️ Descargar archivo</button><button class="g" onclick="$('fl').click()">📂 Cargar archivo</button></div><input id="fl" type="file" accept=".json,application/json" class="hid" onchange="ld(this)"></div>
+<div class="c"><div class="ib">🗑️</div><h3>Borrar todo</h3><div class="l">Elimina todos tus movimientos. No toca tus ajustes.</div><button class="g" style="color:var(--ko);margin-top:8px" onclick="wipe()">Borrar movimientos</button></div>
+</div>
+<div class="bn" id="nv"><button class="on" onclick="go('i')"><span>🏠</span>Inicio</button><button onclick="go('r')"><span>📊</span>Stats</button><button class="mid" onclick="go('g')"><span>➕</span></button><button onclick="go('h')"><span>📜</span>Historial</button><button onclick="go('a')"><span>⚙️</span>Más</button></div>
+<script>
+let S={m:[],sh:4,uh:0},M='c',A='SALDO',PC='C',VC='C',VM='t',PM='t',F='',P='w';
+try{S={...S,...JSON.parse(localStorage.getItem('inv3')||'{}')}}catch(e){}
+const TH0={mode:'fijo',p:0,cu:'#7c3aed',lv:{sin:'#6366f1',perd:'#e11d48',flojo:'#f59e0b',bueno:'#10b981',top:'#ec4899'},meta:1000,dark:'auto',name:'',pv:false};
+S.th={...TH0,...(S.th||{}),lv:{...TH0.lv,...((S.th||{}).lv||{})}};
+const $=i=>document.getElementById(i),n=i=>parseFloat($(i).value);
+const saveL=()=>{try{localStorage.setItem('inv3',JSON.stringify(S))}catch(e){}};
+const save=()=>{saveL();cfgW()};
+let CL=null,ST='local',first=true,busy=false,lastCfg='',ct=null,cp=false;
+const ids=a=>a.map(x=>x.id);
+function cst(){const e=$('cl');if(e)e.textContent=CL&&ST=='cloud'?'✅ Tus datos se guardan en tu cuenta y se ven igual en cualquier teléfono donde abras esta página con tu cuenta de Claude.':'📱 Ahora se guardan solo en este teléfono. Abre la página desde la app de Claude, con tu cuenta, para activar la nube.'}
+function applyCfg(c){if(c.sh>0)S.sh=c.sh;if(c.th)S.th={...TH0,...c.th,lv:{...TH0.lv,...(c.th.lv||{})}};lastCfg=JSON.stringify([S.sh,S.th])}
+function cfgW(now){if(!CL)return;const j=JSON.stringify([S.sh,S.th]);if(j==lastCfg)return;clearTimeout(ct);cp=true;ct=setTimeout(async()=>{try{await CL.doc('cfg').set({sh:S.sh,th:S.th});lastCfg=j}catch(e){}cp=false},now?0:700)}
+async function cloud(){try{const c=window.claude;if(!c)return cst();const[db,us]=await Promise.all([c.use('db'),c.use('user')]);const id=us?await us.id():null;if(!db||!id)return cst();CL=db.collection('data/users/'+id);CL.onSnapshot(onSnap,()=>{CL=null;ST='local';cst()})}catch(e){CL=null;cst()}}
+async function onSnap(snap){if(busy)return;
+const ms=[];let cfg=null;snap.docs.forEach(d=>{const x=d.data();if(d.id=='cfg')cfg=x;else if(d.id.slice(0,2)=='m_')ms.push(x)});
+if(first){if(snap.metadata.fromCache&&!snap.docs.length)return;first=false;busy=true;
+try{const have=new Set(ids(ms)),known=new Set(S.cs||[]),up=S.m.filter(x=>!have.has(x.id)&&!known.has(x.id));
+S.m=[...ms,...up];if(cfg)applyCfg(cfg);else{lastCfg='';cfgW(true)}
+for(const x of up)await CL.doc('m_'+x.id).set(x)}catch(e){}
+busy=false}
+else{S.m=ms;if(cfg&&!cp)applyCfg(cfg)}
+S.cs=ids(S.m);ST='cloud';saveL();draw();drawSet();$('sh').value=S.sh;$('uh').value=S.uh||'';cst()}
+async function cloudReplace(){if(!CL)return;busy=true;try{const snap=await CL.get(),keep=new Set(S.m.map(x=>'m_'+x.id));
+for(const d of snap.docs){if(d.id!='cfg'&&!keep.has(d.id))await CL.doc(d.id).delete()}
+for(const x of S.m)await CL.doc('m_'+x.id).set(x);lastCfg='';cfgW(true);S.cs=ids(S.m);saveL()}catch(e){}busy=false}
+const m=(x,d=2)=>(x<0?'-':'')+Math.abs(x).toLocaleString('es',{maximumFractionDigits:d});
+const sg=x=>(x>0?'+':'')+m(x);
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const addD=(d,k)=>{const x=new Date(d);x.setDate(x.getDate()+k);return x};
+const today=()=>{const t=new Date();t.setHours(12,0,0,0);return t};
+$('fd').valueAsDate=new Date();$('sh').value=S.sh;
+const PAL=[['Violeta','#7c3aed','#14b8a6'],['Océano','#2563eb','#06b6d4'],['Rosa','#ec4899','#f97316'],['Menta','#059669','#84cc16'],['Atardecer','#f97316','#e11d48'],['Noche','#4338ca','#a855f7'],['Dorado','#eab308','#f97316'],['Grafito','#334155','#64748b']];
+const LV={sin:['😴','Sin ventas aún'],perd:['⚠️','En pérdida'],flojo:['🐢','Día flojo'],bueno:['👍','Buen día'],top:['🔥','Día brutal']};
+function pair(h){let r=parseInt(h.slice(1,3),16)/255,g=parseInt(h.slice(3,5),16)/255,b=parseInt(h.slice(5,7),16)/255;const x=Math.max(r,g,b),y=Math.min(r,g,b),l=(x+y)/2,d=x-y;let H=0,Sa=0;if(d){Sa=d/(1-Math.abs(2*l-1));H=x==r?((g-b)/d)%6:x==g?(b-r)/d+2:(r-g)/d+4;H*=60;if(H<0)H+=360}return[h,`hsl(${Math.round((H+40)%360)} ${Math.round(Sa*100)}% ${Math.round(l*100)}%)`]}
+function level(g,n){const t=S.th.meta>0?S.th.meta:1;return !n?'sin':g<0?'perd':g<t/2?'flojo':g<t?'bueno':'top'}
+function applyTheme(lv){const T=S.th,R=document.documentElement;
+const a=T.mode=='auto'?pair(T.lv[lv]):T.p>=0?[PAL[T.p][1],PAL[T.p][2]]:pair(T.cu);
+R.style.setProperty('--a1',a[0]);R.style.setProperty('--a2',a[1]);
+if(T.dark=='auto')R.removeAttribute('data-theme');else R.setAttribute('data-theme',T.dark);
+document.body.classList.toggle('priv',!!T.pv);$('tt').textContent='💸 '+(T.name||'Mis inversiones');$('eye').textContent=T.pv?'🙈':'👁️'}
+const sv=()=>{save();draw();drawSet()};
+function setTM(x){S.th.mode=x;sv()}
+function pickP(i){S.th.mode='fijo';S.th.p=i;sv()}
+function pickC(c){S.th.mode='fijo';S.th.p=-1;S.th.cu=c;sv()}
+function lvc(k,c){S.th.lv[k]=c;save();draw()}
+function setMeta(){const v=n('meta');if(v>0){S.th.meta=v;save();draw()}}
+function setTD(x){S.th.dark=x;sv()}
+function setNm(){S.th.name=$('nm').value.trim();save();draw()}
+function setPV(b){S.th.pv=b;sv()}
+function tpv(){setPV(!S.th.pv)}
+function wipe(){if(confirm('¿Borrar TODOS tus movimientos? No se puede deshacer')){S.m=[];save();draw();cloudReplace()}}
+function drawSet(){const T=S.th;seg('sTM',T.mode=='fijo'?0:1);$('pFijo').classList.toggle('hid',T.mode!='fijo');$('pAuto').classList.toggle('hid',T.mode!='auto');
+$('pal').innerHTML=PAL.map((p,i)=>`<button class="sw${T.p==i?' sel':''}" title="${p[0]}" style="background:linear-gradient(135deg,${p[1]},${p[2]})" onclick="pickP(${i})"></button>`).join('');
+$('cc').value=T.cu;Object.keys(T.lv).forEach(k=>$('lc_'+k).value=T.lv[k]);$('meta').value=T.meta;
+seg('sTD',['auto','light','dark'].indexOf(T.dark));seg('sPV',T.pv?1:0);$('nm').value=T.name}
+function setUh(){const v=n('uh');S.uh=v>0?v:0;save();draw()}
+function setSh(){const v=n('sh');if(v>0){S.sh=v;save();draw()}}
+function seg(id,i){[...$(id).children].forEach((b,k)=>b.classList.toggle('on',k==i))}
+function go(v){seg('nv','irgha'.indexOf(v));['i','r','g','h','a'].forEach(k=>$('v'+k).classList.toggle('hid',k!=v));draw();scrollTo(0,0)}
+function quick(x){setM(x);go('g')}
+function per(p){P=p;seg('pc','dwmt'.indexOf(p));draw()}
+function flt(x){F=x;seg('ch',x==''?0:x=='SALDO'?1:2);draw()}
+function setM(x){M=x;seg('sM',x=='c'?0:1);ui()}
+function setA(x){A=x;seg('sA',x=='SALDO'?0:1);if(x=='SALDO'){PC='C';seg('sPC',0)}ui()}
+function setPC(x){PC=x;seg('sPC',x=='C'?0:1);ui()}
+function setPM(x){PM=x;seg('sPM',x=='t'?0:1);ui()}
+function setVM(x){VM=x;seg('sVM',x=='t'?0:1);ui()}
+function setVC(x){VC=x;seg('sVC',x=='C'?0:1);ui()}
+function ui(){const u=A=='USDT',ps=u&&PC=='S',vs=VC=='S';
+$('bC').classList.toggle('hid',M!='c');$('bV').classList.toggle('hid',M!='v');
+$('sPC').classList.toggle('hid',!u);$('sVC').children[1].textContent=u?'Cobré en saldo':'Cobré en USDT';$('fvs').placeholder=u?'Saldo recibido (ej. 250)':'USDT recibidos (ej. 1)';
+$('fpu').classList.toggle('hid',ps);$('fps').classList.toggle('hid',!ps);
+$('fvm').classList.toggle('hid',vs);$('fvs').classList.toggle('hid',!vs);
+$('sPM').classList.toggle('hid',ps);$('fpu').placeholder=PM=='t'?'¿Cuántos CUP diste en total? (ej. 9500)':'Precio por unidad en CUP (ej. 3.6)';const tot=u||VM=='t';$('sVM').classList.toggle('hid',u||vs);$('fvm').placeholder=tot?'Total cobrado en CUP (ej. 1600)':'Precio por unidad en CUP (ej. 4.2)';prev()}
+function calc(ex){const lots={SALDO:[],USDT:[]};let warn=false;
+const ms=[...S.m,...(ex?[ex]:[])].map(x=>({...x})).sort((a,b)=>(a.f||'').localeCompare(b.f||'')||a.id-b.id);
+const take=(a,q)=>{let c=0,r=q;const L=lots[a];while(r>1e-9&&L.length){const l=L[0],u=Math.min(l.q,r);c+=u*l.u;l.q-=u;r-=u;if(l.q<=1e-9)L.shift()}if(r>1e-9)warn=true;return c};
+for(const x of ms){
+if(x.t=='c'){x.cost=x.pc=='S'?take('SALDO',x.ps):x.q*x.pu;lots[x.a].push({q:x.q,u:x.cost/x.q})}
+else{x.cost=take(x.a,x.q);
+if(x.vc=='S'){x.g=0;const o=x.a=='USDT'?'SALDO':'USDT',rt=o=='SALDO'?S.sh:S.uh;x.o=o;x.ap=rt>0?x.vs*rt-x.cost:null;lots[o].push({q:x.vs,u:x.cost/x.vs})}
+else{x.rev=x.vt;x.g=x.rev-x.cost}}}
+return{ms,lots,warn}}
+function draft(){const q=n('fq');if(!(q>0))return null;const u=A=='USDT';
+const b={id:Date.now(),a:A,q,f:$('fd').value,n:$('fn').value.trim()};
+if(M=='c'){b.t='c';if(u&&PC=='S'){const ps=n('fps');if(!(ps>0))return null;b.pc='S';b.ps=ps}else{const p=n('fpu');if(!(p>=0))return null;b.pc='C';b.pu=PM=='t'?p/q:p}}
+else{b.t='v';if(VC=='S'){const s=n('fvs');if(!(s>0))return null;b.vc='S';b.vs=s}else{const v=n('fvm');if(!(v>=0))return null;b.vc='C';b.vt=(u||VM=='t')?v:q*v}}
+return b}
+function prev(){const b=draft(),p=$('pv');if(!b){p.textContent='Llena los datos y aquí ves la cuenta 👇';return}
+const r=calc(b),x=r.ms.find(y=>y.id==b.id);
+if(r.warn&&!calc().warn){p.innerHTML='⚠️ No tienes tanto '+(b.t=='c'?'saldo':b.a)+' en inventario';return}
+p.innerHTML=b.t=='c'?`Costo total: <b>${m(x.cost)} CUP</b><br>Te sale a <b>${m(x.cost/x.q,4)}</b> CUP por unidad${x.pc=='S'&&S.uh>0?'<br><span style="color:var(--mu)">Aprox. hoy: '+sg(x.q*S.uh-x.cost)+' CUP</span>':''}`:x.vc=='S'?`Das ${m(x.q,4)} ${x.a=='SALDO'?'de saldo':'USDT'} y recibes <b>${m(x.vs,4)}</b> ${x.o=='SALDO'?'de saldo':'USDT'}.<br>Lo que das te costó ${m(x.cost)} CUP → te queda a <b>${m(x.cost/x.vs,4)} CUP</b> c/u.<br><span style="color:var(--mu)">La ganancia sale cuando lo vendas.${x.ap==null?'':' Aprox. hoy: '+sg(x.ap)+' CUP'}</span>`:`Vendes a <b>${m(x.rev/x.q)}</b> c/u · te costó <b>${m(x.cost/x.q)}</b> c/u<br>Cobras ${m(x.rev)} CUP · costo ${m(x.cost)}<br>Ganancia: <b class="${x.g>=0?'pos':'neg'}">${sg(x.g)} CUP (${x.cost?m(x.g/x.cost*100):0}%)</b>`}
+function add(){const b=draft();if(!b)return alert('Faltan datos');
+if(calc(b).warn&&!calc().warn)return alert('No tienes tanto en inventario para eso');
+S.m.push(b);save();if(CL)CL.doc('m_'+b.id).set(b).catch(()=>{});['fq','fpu','fps','fvm','fvs','fn'].forEach(i=>$(i).value='');draw();$('pv').textContent='✅ Guardado'}
+function del(id){if(confirm('¿Borrar este movimiento?')){S.m=S.m.filter(x=>x.id!=id);save();draw();if(CL)CL.doc('m_'+id).delete().catch(()=>{})}}
+function rg(p,o){const t=today();if(p=='t')return null;
+if(p=='d'){const d=ymd(addD(t,o));return[d,d]}
+if(p=='w'){const a=addD(t,-((t.getDay()+6)%7)+7*o);return[ymd(a),ymd(addD(a,6))]}
+return[ymd(new Date(t.getFullYear(),t.getMonth()+o,1,12)),ymd(new Date(t.getFullYear(),t.getMonth()+o+1,0,12))]}
+function st(sold,r){const L=r?sold.filter(x=>x.f>=r[0]&&x.f<=r[1]):sold;
+const g=L.reduce((t,x)=>t+x.g,0),rev=L.reduce((t,x)=>t+x.rev,0),c=L.reduce((t,x)=>t+x.cost,0);
+return{L,g,rev,c,n:L.length,best:L.reduce((b,x)=>!b||x.g>b.g?x:b,null)}}
+function bars(v,lb){const mx=Math.max(1,...v.map(Math.abs)),w=300/v.length;let s='<svg viewBox="0 0 300 120" width="100%"><line x1="0" x2="300" y1="55" y2="55" style="stroke:var(--bd)"/>';
+v.forEach((x,i)=>{const h=Math.abs(x)/mx*40,cx=i*w+w/2;
+s+=`<rect x="${i*w+w*.15}" y="${x>=0?55-h:55}" width="${w*.7}" height="${Math.max(h,1)}" rx="3" style="fill:var(${x>=0?'--ok':'--ko'})"/><text x="${cx}" y="${x>=0?51-h:67+h}" font-size="9" text-anchor="middle" style="fill:var(--mu)">${x?m(x,0):''}</text><text x="${cx}" y="114" font-size="10" text-anchor="middle" style="fill:var(--mu)">${lb[i]}</text>`});
+return s+'</svg>'}
+function draw(){const r=calc(),sold=r.ms.filter(x=>x.t=='v'&&x.vc!='S');
+const all=st(sold,null);$('gan').textContent=sg(all.g)+' CUP';const td=st(sold,rg('d',0)),lv=level(td.g,td.n),mt=S.th.meta>0?S.th.meta:1;applyTheme(lv);$('md').textContent=LV[lv][0]+' '+LV[lv][1];$('mp').textContent='Hoy '+sg(td.g)+' / meta '+m(mt);$('mb').style.width=Math.max(0,Math.min(100,td.g/mt*100))+'%';$('pct').textContent=all.c?m(all.g/all.c*100)+'%':'0%';
+const sq=r.lots.SALDO.reduce((t,l)=>t+l.q,0),sc=r.lots.SALDO.reduce((t,l)=>t+l.q*l.u,0),uq=r.lots.USDT.reduce((t,l)=>t+l.q,0),uc=r.lots.USDT.reduce((t,l)=>t+l.q*l.u,0);
+$('hq').textContent=m(sq);$('hc').textContent=m(sc);$('hp').textContent=sq?m(sc/sq):0;const ap=sq*S.sh-sc;$('ha').textContent=sg(ap);$('ha').className=ap>=0?'pos':'neg';
+$('uq').textContent=m(uq,4);$('uc').textContent=m(uc);$('up').textContent=uq?m(uc/uq):0;const ua=uq*S.uh-uc;$('ua').textContent=S.uh>0?sg(ua):'—';$('ua').className=S.uh>0&&ua<0?'neg':'pos';
+
+const cur=st(sold,rg(P,0)),pv=P=='t'?null:st(sold,rg(P,-1));
+const NM={d:'Hoy',w:'Esta semana',m:'Este mes',t:'Todo el tiempo'},PV={d:'ayer',w:'la semana pasada',m:'el mes pasado'};
+const dl=pv?`<div class="d" style="color:var(--mu)">${sg(cur.g-pv.g)} CUP vs ${PV[P]} (${sg(pv.g)})</div>`:'';
+const as=a=>sg(cur.L.filter(x=>x.a==a).reduce((t,x)=>t+x.g,0));
+const t0=today(),d7=[],l7=[];for(let i=6;i>=0;i--){const d=addD(t0,-i),k=ymd(d);d7.push(sold.filter(x=>x.f==k).reduce((t,x)=>t+x.g,0));l7.push('DLMMJVS'[d.getDay()])}
+const dg=i=>{const k=ymd(addD(t0,-i));return sold.filter(x=>x.f==k).reduce((t,x)=>t+x.g,0)};let stk=0;for(let i=dg(0)>0?0:1;dg(i)>0;i++)stk++;const w6=[],lw=[];for(let i=5;i>=0;i--){const a=addD(t0,-((t0.getDay()+6)%7)-7*i),r2=[ymd(a),ymd(addD(a,6))];w6.push(st(sold,r2).g);lw.push(a.getDate()+'/'+(a.getMonth()+1))}
+$('rs').innerHTML=`<div class="c"><small>${NM[P]} · ganancia</small><div class="kp ${cur.g>=0?'pos':'neg'}">${sg(cur.g)} CUP</div>${dl}
+<div class="l">Ventas: <b>${cur.n}</b> · Vendido: <b>${m(cur.rev)}</b> CUP<br>Rinde: <b>${cur.c?m(cur.g/cur.c*100):0}%</b> · Promedio por venta: <b>${cur.n?sg(cur.g/cur.n):0}</b><br>Racha: <b>${stk} día${stk==1?'':'s'}</b> seguidos ganando 🔥${cur.best?`<br>Mejor venta: <b class="pos">${sg(cur.best.g)}</b> (${cur.best.a} ${m(cur.best.q,4)})`:''}</div></div>
+<div class="g2"><div class="c sa"><small>📱 SALDO · ${NM[P].toLowerCase()}</small><b>${as('SALDO')}</b></div><div class="c us"><small>💵 USDT · ${NM[P].toLowerCase()}</small><b>${as('USDT')}</b></div></div>
+<div class="c"><h3>Últimos 7 días</h3>${bars(d7,l7)}</div>
+<div class="c"><h3>Últimas 6 semanas</h3>${bars(w6,lw)}</div>`;
+const L=r.ms.filter(x=>!F||x.a==F).reverse();
+const it=(x,dl)=>{let d;
+if(x.t=='c')d=x.pc=='S'?`Pagado con ${m(x.ps)} de saldo → ${m(x.cost)} CUP (a ${m(x.cost/x.q,4)} c/u)`:`${m(x.q,4)} × ${m(x.pu,4)} = ${m(x.cost)} CUP`;
+else if(x.vc=='S')d=`Das ${m(x.q,4)} ${x.a=='SALDO'?'de saldo':'USDT'} → recibes ${m(x.vs,4)} ${x.o=='SALDO'?'de saldo':'USDT'} · costo ${m(x.cost)} CUP<br>Te queda a ${m(x.cost/x.vs,4)} c/u<br><span style="opacity:.8">Ganancia real al vender lo recibido${x.ap==null?'':' · aprox. hoy: <b class="'+(x.ap>=0?'pos':'neg')+'">'+sg(x.ap)+'</b>'}</span>`;
+else d=`Cobrado ${m(x.rev)} CUP (a ${m(x.rev/x.q)} c/u) · costo ${m(x.cost)} (a ${m(x.cost/x.q)} c/u)<br><b class="${x.g>=0?'pos':'neg'}">Ganancia ${sg(x.g)} CUP (${x.cost?m(x.g/x.cost*100):0}%)</b>`;
+return `<div class="c it"><div class="t"><span><span class="tag ${x.a}">${x.a}</span>${x.t=='c'?'🛒 Compra':'💰 Venta'} ${m(x.q,4)}</span><span>${x.f||''}</span></div>
+<div class="s">${d}${x.n?'<br>📝 '+esc(x.n):''}</div>${dl?'<div style="text-align:right"><button class="g" style="padding:5px 10px;font-size:13px" onclick="del('+x.id+')">Borrar</button></div>':''}</div>`};
+const emp='<div class="c" style="color:var(--mu)">Aún no hay movimientos 🙂</div>';
+$('list').innerHTML=L.length?L.map(x=>it(x,1)).join(''):emp;
+$('rc').innerHTML=r.ms.length?r.ms.slice(-5).reverse().map(x=>it(x,0)).join(''):emp}
+function dl(){const b=new Blob([JSON.stringify(S)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="respaldo-inversiones-"+ymd(new Date())+".json";document.body.appendChild(a);a.click();a.remove()}
+function ld(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("ta").value=r.result;rs2()};r.readAsText(f);i.value=""}
+function bk(){$('ta').value=JSON.stringify(S)}
+function rs2(){try{const o=JSON.parse($('ta').value);if(!Array.isArray(o.m))throw 0;S={...S,m:o.m,sh:o.sh||4,uh:o.uh||0,th:{...TH0,...(o.th||{}),lv:{...TH0.lv,...((o.th||{}).lv||{})}}};save();cloudReplace();$('sh').value=S.sh;$('uh').value=S.uh||'';draw();alert('Listo ✅')}catch(e){alert('Ese respaldo no sirve')}}
+$('dt').textContent=new Date().toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
+ui();draw();drawSet();
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script></body></html>
