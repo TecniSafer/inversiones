@@ -58,7 +58,7 @@ button.g{background:transparent;color:var(--mu);border:1px solid var(--bd)}
 .sw{width:42px;height:42px;padding:0;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 2px var(--bd)}.sw.sel{box-shadow:0 0 0 3px var(--tx)}
 input[type=color]{width:44px;height:44px;padding:0;margin:0;border-radius:50%;border:3px solid var(--bd);background:none;flex:none}
 .lvr{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0;font-size:14px}
-body.priv :is(.big,.kp,.pill b,.mood,#vi .c b,#vi .l,.it .s,.it .t,.pv,#rs .c b,#rs .l,#rs svg,#pM .c b,#pM .l,#pM .lvr,#pS .l,#pS .lvr,#cashl,#cycc .l,#cycc b,.pill){filter:blur(7px)}
+body.priv :is(.big,.kp,.pill b,.mood,#vi .c b,#vi .l,.it .s,.it .t,.pv,#rs .c b,#rs .l,#rs svg,#pM .c b,#pM .l,#pM .lvr,#pS .l,#pS .lvr,#cashl,.pocket b,#cycc .l,#cycc b,.pill){filter:blur(7px)}
 
 select{width:100%;padding:13px 16px;margin:5px 0;border:1px solid var(--bd);border-radius:20px;background:var(--soft);color:var(--tx);font-size:16px}
 .seg.wrap{flex-wrap:wrap;border-radius:26px}.seg.wrap button{flex:1 1 30%}
@@ -83,6 +83,8 @@ button{transition:transform .08s,filter .15s}button:active{transform:scale(.97);
 .bn{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--card) 90%,transparent)}
 .pv{border:1px solid var(--bd)}
 .seg button{font-size:14px}
+.pocket{display:flex;gap:8px;margin-top:10px}.pocket div{flex:1;background:var(--soft);border:1px solid var(--bd);border-radius:18px;padding:10px 12px;font-size:12px;color:var(--mu)}.pocket b{display:block;font-size:17px;color:var(--tx);margin-top:2px}
+.seg button.on.g1{background:linear-gradient(135deg,#a78bfa,#7c3aed)}
 </style>
 </head><body>
 <div id="wc" class="hid"><div class="wbox">
@@ -101,7 +103,7 @@ button{transition:transform .08s,filter .15s}button:active{transform:scale(.97);
 <div id="vi">
 <div class="c hid" id="bkn"><div id="bkt" class="l" style="margin:0 0 8px"></div><button onclick="dl()" style="width:100%">⬇️ Descargar respaldo ahora</button></div>
 <div class="hero"><i class="b1"></i><i class="b2"></i><small>Ganancia de hoy</small><div class="big" id="gan">0 CUP</div><span class="pill" id="pct">🎯 0% de tu meta</span><div class="mood"><span id="md"></span><span id="mp"></span></div><div class="bar"><span id="mb"></span></div></div>
-<div class="c" style="margin-top:12px"><div class="row" style="align-items:center"><div><small>💰 CUP disponible</small><div class="kp" id="cash">—</div></div><button class="g" style="flex:none" onclick="setCash()">✏️ Ajustar</button></div><div class="l" id="cashl"></div></div>
+<div class="c" style="margin-top:12px"><div class="row" style="align-items:center"><div><small>💰 CUP disponible</small><div class="kp" id="cash">—</div></div><button class="g" style="flex:none" onclick="setCash()">✏️ Ajustar</button></div><div class="pocket"><div>🏦 Transferencia<b id="cashT">—</b></div><div>💵 Efectivo<b id="cashE">—</b></div></div><div class="l" id="cashl"></div></div>
 <div class="c" id="cycc"></div>
 <div class="sec">Mi inventario <a onclick="go('g');setM('i')">＋ Lo que ya tengo</a></div>
 <div class="g2" id="inv"></div>
@@ -117,17 +119,18 @@ button{transition:transform .08s,filter .15s}button:active{transform:scale(.97);
 <input id="sn" placeholder="Nombre (ej. María)" oninput="setSn()">
 <div class="row"><input id="sb" type="number" inputmode="decimal" placeholder="Por cada (ej. 10000)" oninput="setSb()"><input id="sr" type="number" inputmode="decimal" placeholder="Le doy al mes (ej. 2500)" oninput="setSr()"></div>
 <div class="l" style="margin-top:6px">Día del mes en que se cierra el mes y le pagas:</div><input id="cd" type="number" inputmode="numeric" placeholder="Día de corte (ej. 29)" oninput="setCd()"></div>
-<div class="c"><h3>📥 Ella me dio</h3><div class="row"><input id="ama" type="number" inputmode="decimal" placeholder="Monto en CUP"><input id="amd" type="date"></div><button style="width:100%" onclick="addAp()">Agregar</button><div class="l" id="apt" style="margin-top:8px"></div><div id="apl"></div></div>
-<div class="c"><h3>📤 Le pagué</h3><div class="seg" id="sPT"><button class="on" onclick="setPT('int')">Pago del mes</button><button onclick="setPT('cap')">Devolución de capital</button></div><div class="row"><input id="pga" type="number" inputmode="decimal" placeholder="Monto en CUP"><input id="pgd" type="date"></div><button style="width:100%" onclick="addPg()">Agregar</button><div id="pgl"></div></div>
+<div class="c"><h3>📥 Ella me dio</h3><div class="row"><input id="ama" type="number" inputmode="decimal" placeholder="Monto en CUP"><input id="amd" type="date"></div><div class="seg" id="sAH"><button class="on" onclick="setAH('T')">🏦 Transferencia</button><button onclick="setAH('E')">💵 Efectivo</button></div><button style="width:100%" onclick="addAp()">Agregar</button><div class="l" id="apt" style="margin-top:8px"></div><div id="apl"></div></div>
+<div class="c"><h3>📤 Le pagué</h3><div class="seg" id="sPT"><button class="on" onclick="setPT('int')">Pago del mes</button><button onclick="setPT('cap')">Devolución de capital</button></div><div class="seg" id="sGH"><button class="on" onclick="setGH('T')">🏦 Transferencia</button><button onclick="setGH('E')">💵 Efectivo</button></div><div class="row"><input id="pga" type="number" inputmode="decimal" placeholder="Monto en CUP"><input id="pgd" type="date"></div><button style="width:100%" onclick="addPg()">Agregar</button><div id="pgl"></div></div>
 </div></div>
 
 <div id="vg" class="hid"><div class="c" oninput="prev()">
-<div class="seg" id="sM"><button class="on c1" onclick="setM('c')">🛒 Compré</button><button class="v1" onclick="setM('v')">💰 Vendí</button><button class="i1" onclick="setM('i')">📦 Ya tengo</button></div>
+<div class="seg" id="sM"><button class="on c1" onclick="setM('c')">🛒 Compré</button><button class="v1" onclick="setM('v')">💰 Vendí</button><button class="i1" onclick="setM('i')">📦 Ya tengo</button><button class="g1" onclick="setM('g')">🧾 Gasté</button></div>
 <div class="seg wrap" id="sA"></div>
 <input id="fq" type="number" inputmode="decimal" placeholder="Cantidad (ej. 1000 de saldo, 0.75 USDT)">
 <div id="bC">
  <div class="seg" id="sPC"><button class="on" onclick="setPC('C')">Pagué en CUP</button><button onclick="setPC('S')">Pagué con otra moneda</button></div>
  <div class="seg" id="sPM"><button class="on" onclick="setPM('t')">Total en CUP</button><button onclick="setPM('u')">Por unidad</button></div>
+ <div class="seg" id="sPH"><button class="on" onclick="setPH('T')">🏦 Pagué por transferencia</button><button onclick="setPH('E')">💵 Pagué en efectivo</button></div>
  <input id="fpu" type="number" inputmode="decimal">
  <select id="fpa" class="hid"></select>
  <input id="fps" class="hid" type="number" inputmode="decimal" placeholder="¿Cuánto diste de esa moneda? (ej. 250)">
@@ -141,6 +144,7 @@ button{transition:transform .08s,filter .15s}button:active{transform:scale(.97);
  <select id="fra" class="hid"></select>
  <input id="fvs" class="hid" type="number" inputmode="decimal" placeholder="¿Cuánto recibiste de esa moneda? (ej. 250)">
 </div>
+<div id="bG" class="hid"><select id="fgc"></select><input id="fga" type="number" inputmode="decimal" placeholder="¿Cuánto gastaste? (ej. 500)"></div>
 <div class="row"><input id="fn" placeholder="Nota (opcional)"><input id="fd" type="date"></div>
 <div class="pv" id="pv"></div>
 <button onclick="add()" style="width:100%">Guardar</button>
@@ -187,7 +191,7 @@ const qs=(a,q)=>a=='SALDO'?m(q,4)+' de saldo':m(q,4)+' '+AS[a].s;
 const TH0={mode:'fijo',p:0,cu:'#7c3aed',lv:{sin:'#6366f1',perd:'#e11d48',flojo:'#f59e0b',bueno:'#10b981',top:'#ec4899'},meta:1000,dark:'auto',name:'',pv:false};
 const PAL=[['Violeta','#7c3aed','#14b8a6'],['Océano','#2563eb','#06b6d4'],['Rosa','#ec4899','#f97316'],['Menta','#059669','#84cc16'],['Atardecer','#f97316','#e11d48'],['Noche','#4338ca','#a855f7'],['Dorado','#eab308','#f97316'],['Grafito','#334155','#64748b']];
 const LV={sin:['😴','Sin ventas aún'],perd:['⚠️','En pérdida'],flojo:['🐢','Día flojo'],bueno:['👍','Buen día'],top:['🔥','Día brutal']};
-let PF={list:[],cur:null},S={m:[],sh:0,uh:0,rt:{},as:[],th:{...TH0,lv:{...TH0.lv}}},M='c',A='SALDO',PC='C',VC='C',VM='t',PM='t',CH='T',F='',P='w',WA=new Set(),WN='n';
+let PF={list:[],cur:null},S={m:[],sh:0,uh:0,rt:{},as:[],th:{...TH0,lv:{...TH0.lv}}},M='c',A='SALDO',PC='C',VC='C',VM='t',PM='t',CH='T',PH='T',AH='T',GH='T',GS=[],F='',P='w',WA=new Set(),WN='n';
 const kd=id=>id=='main'?'inv3':'inv3_'+id;
 const newS=as=>({m:[],sh:0,uh:0,rt:{},c0:null,c0t:0,ap:[],pg:[],sb:10000,sr:2500,sn:'',cd:29,as,th:{...TH0,lv:{...TH0.lv}}});
 function loadS(id){let o={};try{o=JSON.parse(localStorage.getItem(kd(id))||'{}')}catch(e){}
@@ -241,17 +245,19 @@ function setRate(a,v){v=parseFloat(v);S.rt[a]=v>0?v:0;if(a=='SALDO')S.sh=S.rt[a]
 function go(v){seg('nv','irgha'.indexOf(v));['i','r','g','h','a'].forEach(k=>$('v'+k).classList.toggle('hid',k!=v));draw();scrollTo(0,0)}
 function per(p){P=p;seg('pc','dwmt'.indexOf(p));draw()}
 function flt(x){F=x;seg('ch',x?EN().indexOf(x)+1:0);draw()}
-function setM(x){M=x;seg('sM',x=='c'?0:x=='v'?1:2);ui()}
+function setM(x){M=x;seg('sM',{c:0,v:1,i:2,g:3}[x]);ui()}
 function setA(x){A=x;seg('sA',EN().indexOf(x));ui()}
 function setPC(x){PC=x;ui()}function setVC(x){VC=x;ui()}
-function setPM(x){PM=x;seg('sPM',x=='t'?0:1);ui()}function setCH(x){CH=x;seg('sCH',x=='T'?0:1);ui()}
+function setPM(x){PM=x;seg('sPM',x=='t'?0:1);ui()}function setPH(x){PH=x;seg('sPH',x=='T'?0:1)}function setAH(x){AH=x;seg('sAH',x=='T'?0:1)}function setGH(x){GH=x;seg('sGH',x=='T'?0:1)}
+function setCH(x){CH=x;seg('sCH',x=='T'?0:1);ui()}
 function setVM(x){VM=x;seg('sVM',x=='t'?0:1);ui()}
 function ui(){const o=EN().filter(a=>a!=A);if(!o.length){PC='C';VC='C'}
 const ini=M=='i',ps=PC=='S'&&!ini,vs=VC=='S';seg('sPC',ps?1:0);seg('sVC',vs?1:0);
 $('sPC').classList.toggle('hid',!o.length||ini);$('sVC').classList.toggle('hid',!o.length);
 [$('fpa'),$('fra')].forEach(s=>{const c=s.value;s.innerHTML=o.map(a=>`<option value="${a}">${AS[a].i} ${AS[a].n}</option>`).join('');if(o.includes(c))s.value=c});
 $('fpa').classList.toggle('hid',!ps);$('fra').classList.toggle('hid',!vs);
-$('bC').classList.toggle('hid',M=='v');$('bV').classList.toggle('hid',M!='v');
+const gm=M=='g';$('bC').classList.toggle('hid',M=='v'||gm);$('bG').classList.toggle('hid',!gm);$('sA').classList.toggle('hid',gm);$('fq').classList.toggle('hid',gm);$('sPH').classList.toggle('hid',ps||ini);
+{const sg2=$('fgc'),cg=sg2.value;sg2.innerHTML='<option value="T">🏦 CUP transferencia</option><option value="E">💵 CUP efectivo</option>'+EN().map(a=>`<option value="${a}">${AS[a].i} ${AS[a].n}</option>`).join('');if(cg)sg2.value=cg}$('bV').classList.toggle('hid',M!='v');
 $('fpu').classList.toggle('hid',ps);$('sPM').classList.toggle('hid',ps);$('fps').classList.toggle('hid',!ps);
 $('sCH').classList.toggle('hid',vs);const ef=CH=='E'&&!vs;$('fvr').classList.toggle('hid',!ef);$('fvr').placeholder=VM=='t'?'¿Cuánto habrías cobrado por transferencia? (total)':'¿A cuánto lo vendes por transferencia? (por unidad)';$('fvm').classList.toggle('hid',vs);$('sVM').classList.toggle('hid',vs);$('fvs').classList.toggle('hid',!vs);
 $('fpu').placeholder=PM=='t'?(ini?'¿Cuánto te costó en total, en CUP? (ej. 1800)':'¿Cuántos CUP diste en total? (ej. 9500)'):'Precio por unidad en CUP (ej. 3.6)';
@@ -262,22 +268,28 @@ const ms=[...S.m,...(ex?[ex]:[])].map(x=>({...x})).sort((a,b)=>(a.f||'').localeC
 const take=(a,q)=>{let c=0,r=q;const L=lots[a];while(r>1e-9&&L.length){const l=L[0],u=Math.min(l.q,r);c+=u*l.u;l.q-=u;r-=u;if(l.q<=1e-9)L.shift()}if(r>1e-9)warn=true;return c};
 for(const x of ms){
 if(x.t=='c'){x.cost=x.pc=='S'?take(x.pa||'SALDO',x.ps):x.q*x.pu;lots[x.a].push({q:x.q,u:x.cost/x.q})}
+else if(x.t=='g'){if(x.a)x.cost=take(x.a,x.q)}
 else if(x.t=='a'){if(x.dir>0){x.cost=x.q*x.pu;lots[x.a].push({q:x.q,u:x.pu})}else x.cost=take(x.a,x.q)}
 else{x.cost=take(x.a,x.q);
 if(x.vc=='S'){x.g=0;const o=x.ra||(x.a=='USDT'?'SALDO':'USDT'),rt=rate(o);x.o=o;x.ap=rt>0?x.vs*rt-x.cost:null;lots[o].push({q:x.vs,u:x.cost/x.vs})}
 else{x.rev=x.vt;x.g=x.rev-x.cost;if(x.ch=='E'&&x.rf>0){x.dc=x.rf-x.rev;x.dp=x.dc/x.rf*100;x.gt=x.rf-x.cost}}}}
 return{ms,lots,warn}}
-function draft(){const q=n('fq');if(!(q>0))return null;
+function draft(){if(M=='g'){const amt=n('fga'),cur=$('fgc').value;if(!(amt>0)||!cur)return null;const g={id:Date.now(),t:'g',cur,amt,f:$('fd').value,n:$('fn').value.trim()};if(cur!='T'&&cur!='E'){g.a=cur;g.q=amt}return g}
+const q=n('fq');if(!(q>0))return null;
 const b={id:Date.now(),a:A,q,f:$('fd').value,n:$('fn').value.trim()};
-if(M!='v'){b.t='c';if(M=='c'&&PC=='S'){const ps=n('fps');if(!(ps>0)||!$('fpa').value)return null;b.pc='S';b.ps=ps;b.pa=$('fpa').value}else{const p=n('fpu');if(!(p>=0))return null;b.pc='C';b.pu=PM=='t'?p/q:p;if(M=='i')b.ini=true}}
+if(M!='v'){b.t='c';if(M=='c'&&PC=='S'){const ps=n('fps');if(!(ps>0)||!$('fpa').value)return null;b.pc='S';b.ps=ps;b.pa=$('fpa').value}else{const p=n('fpu');if(!(p>=0))return null;b.pc='C';b.pu=PM=='t'?p/q:p;if(M=='i')b.ini=true;else b.pch=PH}}
 else{b.t='v';if(VC=='S'){const s=n('fvs');if(!(s>0)||!$('fra').value)return null;b.vc='S';b.vs=s;b.ra=$('fra').value}else{const v=n('fvm');if(!(v>=0))return null;b.vc='C';b.vt=VM=='t'?v:q*v;b.ch=CH;if(CH=='E'){const rr=n('fvr');if(rr>0)b.rf=VM=='t'?rr:q*rr}}}
 return b}
 function prev(){const b=draft(),p=$('pv');if(!b){p.textContent='Llena los datos y aquí ves la cuenta 👇';return}
 const r=calc(b),x=r.ms.find(y=>y.id==b.id);
 if(r.warn&&!calc().warn){p.innerHTML='⚠️ No tienes tanto '+AS[b.t=='c'?b.pa:b.a].n+' en inventario';return}
-p.innerHTML=b.t=='c'?`${x.ini?'📦 Ya lo tenías. ':''}Costo total: <b>${m(x.cost)} CUP</b><br>Te sale a <b>${m(x.cost/x.q,4)}</b> CUP por unidad${x.ini?'<br><span style="color:var(--mu)">No se descuenta de tus CUP disponibles.</span>':''}${x.pc=='S'&&rate(x.a)>0?'<br><span style="color:var(--mu)">Aprox. hoy: '+sg(x.q*rate(x.a)-x.cost)+' CUP</span>':''}`
+p.innerHTML=b.t=='g'?(x.a?`Gastas <b>${qs(x.a,x.amt)}</b><br>Equivale a <b>${m(x.cost)} CUP</b> (a cómo lo tenías)`:`Gastas <b>${m(x.amt)} CUP</b> de ${x.cur=='E'?'efectivo':'transferencia'}`):b.t=='c'?`${x.ini?'📦 Ya lo tenías. ':''}Costo total: <b>${m(x.cost)} CUP</b><br>Te sale a <b>${m(x.cost/x.q,4)}</b> CUP por unidad${x.ini?'<br><span style="color:var(--mu)">No se descuenta de tus CUP disponibles.</span>':''}${x.pc=='S'&&rate(x.a)>0?'<br><span style="color:var(--mu)">Aprox. hoy: '+sg(x.q*rate(x.a)-x.cost)+' CUP</span>':''}`
 :x.vc=='S'?`Das ${qs(x.a,x.q)} y recibes <b>${qs(x.o,x.vs)}</b>.<br>Lo que das te costó ${m(x.cost)} CUP → te queda a <b>${m(x.cost/x.vs,4)} CUP</b> c/u.<br><span style="color:var(--mu)">La ganancia sale cuando lo vendas.${x.ap==null?'':' Aprox. hoy: '+sg(x.ap)+' CUP'}</span>`
 :`Vendes a <b>${m(x.rev/x.q)}</b> c/u · te costó <b>${m(x.cost/x.q)}</b> c/u<br>Cobras ${m(x.rev)} CUP · costo ${m(x.cost)}<br>Ganancia: <b class="${x.g>=0?'pos':'neg'}">${sg(x.g)} CUP (${x.cost?m(x.g/x.cost*100):0}%)</b>${EFX(x)}`}
+const gsum=L=>{const o={T:0,E:0,as:{},eq:0};L.forEach(x=>{if(x.t!='g')return;if(x.a){o.as[x.a]=(o.as[x.a]||0)+x.amt;o.eq+=x.cost}else{o[x.cur]+=x.amt;o.eq+=x.amt}});return o};
+const gtx=o=>{const p=[];if(o.T)p.push('🏦 '+m(o.T)+' CUP');if(o.E)p.push('💵 '+m(o.E)+' CUP');Object.keys(o.as).forEach(a=>p.push(AS[a].i+' '+qs(a,o.as[a])));return p.join(' · ')};
+const itg=(x,dl)=>{const cl=x.cur=='T'?'🏦 CUP transferencia':x.cur=='E'?'💵 CUP efectivo':AS[x.cur].i+' '+AS[x.cur].n;
+return `<div class="c it"><div class="t"><span><span class="tag" style="background:#8b5cf6">GASTO</span>🧾 ${x.a?qs(x.a,x.amt):m(x.amt)+' CUP'}</span><span>${x.f||''}</span></div><div class="s">Pagado con ${cl}${x.a?' · equivale a '+m(x.cost)+' CUP':''}${x.n?'<br>📝 '+esc(x.n):''}</div>${dl?'<div style="text-align:right"><button class="g" style="padding:5px 10px;font-size:13px" onclick="del('+x.id+')">Borrar</button></div>':''}</div>`};
 const EFX=x=>x.ch!='E'?'':x.rf>0?`<br>💵 En efectivo: por transferencia cobrarías <b>${m(x.rf)}</b> y cobras <b>${m(x.rev)}</b> → <b>${x.dc>0?'−':'+'}${m(Math.abs(x.dp),1)}%</b> (${x.dc>0?'dejas de ganar':'ganas de más'} ${m(Math.abs(x.dc))} CUP)<br>Por transferencia ganarías: <b class="${x.gt>=0?'pos':'neg'}">${sg(x.gt)} CUP</b>${x.g<0&&x.gt>=0?'<br>⚠️ Esta pérdida es por vender en efectivo.':''}`:'<br>💵 Vendido en efectivo';
 const efl=L=>{const e=L.filter(x=>x.ch=='E'&&x.rf>0);if(!e.length)return '';const dc=e.reduce((t,x)=>t+x.dc,0),rf=e.reduce((t,x)=>t+x.rf,0);return `<br>💵 Efectivo (${e.length}): descuento promedio <b>${m(dc/rf*100,1)}%</b> · ${dc>=0?'dejaste de ganar':'ganaste de más'} <b>${m(Math.abs(dc))}</b> CUP`};
 function adjA(a){const r=calc(),L=r.lots[a],q=L.reduce((t,l)=>t+l.q,0),c=L.reduce((t,l)=>t+l.q*l.u,0),avg=q?c/q:0;
@@ -289,7 +301,7 @@ if(d>0){const u=pn(prompt('Tienes '+m(d,4)+' más de lo anotado. ¿A cómo te sa
 S.m.push(b);save();draw()}
 function add(){const b=draft();if(!b)return alert('Faltan datos');
 if(calc(b).warn&&!calc().warn)return alert('No tienes tanto en inventario para eso');
-S.m.push(b);save();['fq','fpu','fps','fvm','fvs','fn'].forEach(i=>$(i).value='');draw();$('pv').textContent='✅ Guardado'}
+S.m.push(b);save();['fq','fpu','fps','fvm','fvs','fn','fga','fvr'].forEach(i=>$(i).value='');draw();$('pv').textContent='✅ Guardado'}
 function del(id){if(confirm('¿Borrar este movimiento?')){S.m=S.m.filter(x=>x.id!=id);save();draw()}}
 function rg(p,o){const t=today();if(p=='t')return null;
 if(p=='d'){const d=ymd(addD(t,o));return[d,d]}
@@ -302,12 +314,12 @@ function bars(v,lb){const mx=Math.max(1,...v.map(Math.abs)),w=300/v.length;let s
 v.forEach((x,i)=>{const h=Math.abs(x)/mx*40,cx=i*w+w/2;
 s+=`<rect x="${i*w+w*.15}" y="${x>=0?55-h:55}" width="${w*.7}" height="${Math.max(h,1)}" rx="3" style="fill:var(${x>=0?'--ok':'--ko'})"/><text x="${cx}" y="${x>=0?51-h:67+h}" font-size="9" text-anchor="middle" style="fill:var(--mu)">${x?m(x,0):''}</text><text x="${cx}" y="114" font-size="10" text-anchor="middle" style="fill:var(--mu)">${lb[i]}</text>`});
 return s+'</svg>'}
-function draw(){if(!PF.cur||!S.as||!S.as.length)return;const r=calc(),sold=r.ms.filter(x=>x.t=='v'&&x.vc!='S');
+function draw(){if(!PF.cur||!S.as||!S.as.length)return;const r=calc(),sold=r.ms.filter(x=>x.t=='v'&&x.vc!='S');GS=r.ms.filter(x=>x.t=='g');
 const dd=S.lb?Math.floor((Date.now()-S.lb)/864e5):null,need=S.m.length>0&&(dd==null||dd>=7);$('bkn').classList.toggle('hid',!need);if(need)$('bkt').textContent=dd==null?'💾 Aún no has descargado ningún respaldo. Hazlo para no perder tus datos si algo falla.':'💾 Hace '+dd+' días que no haces respaldo.';
 const all=st(sold,null);
 const td=st(sold,rg('d',0)),lv=level(td.g,td.n),mt=S.th.meta>0?S.th.meta:1;applyTheme(lv);
 $('gan').textContent=sg(td.g)+' CUP';$('pct').textContent='🎯 '+Math.round(td.g/mt*100)+'% de tu meta';$('md').textContent=LV[lv][0]+' '+LV[lv][1];$('mp').textContent='Meta '+m(mt)+' CUP';
-const inv=KS.reduce((t,a)=>t+r.lots[a].reduce((u,l)=>u+l.q*l.u,0),0),cs=cash(r);
+const inv=KS.reduce((t,a)=>t+r.lots[a].reduce((u,l)=>u+l.q*l.u,0),0),cp=cashP(r),cs=cp?cp.t:null;$('cashT').textContent=cp?m(cp.T):'—';$('cashE').textContent=cp?m(cp.E):'—';
 $('cash').textContent=cs==null?'Toca ✏️':m(cs)+' CUP';$('cash').className='kp'+(cs!=null&&cs<0?' neg':'');
 $('cashl').textContent=cs==null?'Pon cuántos CUP tienes ahora y la app los va descontando con tus compras y sumando con tus ventas.':'En inventario: '+m(inv)+' CUP · Total: '+m(cs+inv)+' CUP';$('mb').style.width=Math.max(0,Math.min(100,td.g/mt*100))+'%';
 EN().forEach(a=>{const L=r.lots[a],q=L.reduce((t,l)=>t+l.q,0),c=L.reduce((t,l)=>t+l.q*l.u,0),rt=rate(a),ap=q*rt-c;
@@ -317,16 +329,17 @@ const NM={d:'Hoy',w:'Esta semana',m:'Este mes',t:'Todo el tiempo'},PV={d:'ayer',
 const dl=pv?`<div class="d" style="color:var(--mu)">${sg(cur.g-pv.g)} CUP vs ${PV[P]} (${sg(pv.g)})</div>`:'';
 const asc=EN().map(a=>`<div class="c"><div class="ib" style="background:${AS[a].c}33">${AS[a].i}</div><small>${AS[a].s} · ${NM[P].toLowerCase()}</small><b>${sg(cur.L.filter(x=>x.a==a).reduce((t,x)=>t+x.g,0))}</b></div>`).join('');
 const ef=cur.L.filter(x=>x.ch=='E'),efc=ef.length?`<div class="c"><div class="ib">💵</div><h3>Ventas en efectivo</h3><div class="l">Ventas en efectivo: <b>${ef.length}</b>${efl(cur.L)}</div></div>`:'';
+const qg=rg(P,0),gr=gsum(GS.filter(x=>!qg||(x.f>=qg[0]&&x.f<=qg[1]))),gec=GS.length?`<div class="c"><div class="ib">🧾</div><h3>Gastos · ${NM[P].toLowerCase()}</h3><div class="l">${gtx(gr)||'Sin gastos anotados'}</div>${gr.eq?`<div class="kp neg" style="margin-top:6px">−${m(gr.eq)} CUP</div><div class="l">en total (lo que no es CUP, a cómo lo tenías)</div>`:''}</div>`:'';
 const t0=today(),d7=[],l7=[];for(let i=6;i>=0;i--){const d=addD(t0,-i),k=ymd(d);d7.push(sold.filter(x=>x.f==k).reduce((t,x)=>t+x.g,0));l7.push('DLMMJVS'[d.getDay()])}
 const dg=i=>{const k=ymd(addD(t0,-i));return sold.filter(x=>x.f==k).reduce((t,x)=>t+x.g,0)};let stk=0;for(let i=dg(0)>0?0:1;dg(i)>0;i++)stk++;
 const w6=[],lw=[];for(let i=5;i>=0;i--){const a=addD(t0,-((t0.getDay()+6)%7)-7*i),r2=[ymd(a),ymd(addD(a,6))];w6.push(st(sold,r2).g);lw.push(a.getDate()+'/'+(a.getMonth()+1))}
 $('rs').innerHTML=`<div class="c"><small>${NM[P]} · ganancia</small><div class="kp ${cur.g>=0?'pos':'neg'}">${sg(cur.g)} CUP</div>${dl}
 <div class="l">Ventas: <b>${cur.n}</b> · Vendido: <b>${m(cur.rev)}</b> CUP<br>Rinde: <b>${cur.c?m(cur.g/cur.c*100):0}%</b> · Promedio por venta: <b>${cur.n?sg(cur.g/cur.n):0}</b><br>Racha: <b>${stk} día${stk==1?'':'s'}</b> seguidos ganando 🔥${cur.best?`<br>Mejor venta: <b class="pos">${sg(cur.best.g)}</b> (${AS[cur.best.a].s} ${m(cur.best.q,4)})`:''}</div></div>
-<div class="g2">${asc}</div>${efc}
+<div class="g2">${asc}</div>${efc}${gec}
 <div class="c"><h3>Últimos 7 días</h3>${bars(d7,l7)}</div>
 <div class="c"><h3>Últimas 6 semanas</h3>${bars(w6,lw)}</div>`;
 const L=r.ms.filter(x=>!F||x.a==F).reverse();
-const it=(x,dl)=>{let d;
+const it=(x,dl)=>{if(x.t=='g')return itg(x,dl);let d;
 if(x.t=='a')d=x.dir>0?`Sumaste ${qs(x.a,x.q)} que no estaban anotados (a ${m(x.pu,4)} c/u)`:`Quitaste ${qs(x.a,x.q)} que no tenías`;
 else if(x.t=='c')d=x.pc=='S'?`Pagado con ${qs(x.pa||'SALDO',x.ps)} → ${m(x.cost)} CUP (a ${m(x.cost/x.q,4)} c/u)`:`${m(x.q,4)} × ${m(x.pu,4)} = ${m(x.cost)} CUP`;
 else if(x.vc=='S')d=`Das ${qs(x.a,x.q)} → recibes ${qs(x.o,x.vs)} · costo ${m(x.cost)} CUP<br>Te queda a ${m(x.cost/x.vs,4)} c/u<br><span style="opacity:.8">Ganancia real al vender lo recibido${x.ap==null?'':' · aprox. hoy: <b class="'+(x.ap>=0?'pos':'neg')+'">'+sg(x.ap)+'</b>'}</span>`;
@@ -359,15 +372,19 @@ function dl(){S.lb=Date.now();save();draw();const b=new Blob([JSON.stringify(S)]
 function ld(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("ta").value=r.result;rs2()};r.readAsText(f);i.value=""}
 function rs2(){try{const o=JSON.parse($('ta').value);if(!Array.isArray(o.m))throw 0;
 const as=o.as&&o.as.length?o.as:['SALDO','USDT'];
-S={...S,c0:o.c0!=null?o.c0:null,c0t:o.c0t||0,ap:o.ap||[],pg:o.pg||[],sb:o.sb||10000,sr:o.sr||2500,sn:o.sn||'',cd:o.cd||29,lb:o.lb||S.lb,m:o.m,sh:o.sh||0,uh:o.uh||0,rt:o.rt||{},as:KS.filter(a=>as.includes(a)||o.m.some(y=>y.a==a||y.pa==a||y.ra==a)),th:{...TH0,...(o.th||{}),lv:{...TH0.lv,...((o.th||{}).lv||{})}}};
+S={...S,cT0:o.cT0!=null?o.cT0:null,cE0:o.cE0!=null?o.cE0:null,c0:o.c0!=null?o.c0:null,c0t:o.c0t||0,ap:o.ap||[],pg:o.pg||[],sb:o.sb||10000,sr:o.sr||2500,sn:o.sn||'',cd:o.cd||29,lb:o.lb||S.lb,m:o.m,sh:o.sh||0,uh:o.uh||0,rt:o.rt||{},as:KS.filter(a=>as.includes(a)||o.m.some(y=>y.a==a||y.pa==a||y.ra==a)),th:{...TH0,...(o.th||{}),lv:{...TH0.lv,...((o.th||{}).lv||{})}}};
 save();buildAll();alert('Listo ✅')}catch(e){alert('Ese respaldo no sirve')}}
 
 /* ---- CUP disponible, mes y socio ---- */
-function cash(r){if(S.c0==null)return null;let c=S.c0;
-r.ms.forEach(x=>{if(x.id<=S.c0t)return;if(x.t=='c'&&x.pc!='S'&&!x.ini)c-=x.cost;else if(x.t=='v'&&x.vc!='S')c+=x.rev});
-S.ap.forEach(x=>{if(x.id>S.c0t)c+=x.amt});S.pg.forEach(x=>{if(x.id>S.c0t)c-=x.amt});return c}
-function setCash(){const cs=cash(calc());const v=parseFloat(String(prompt('¿Cuántos CUP tienes ahora?',cs==null?'':Math.round(cs*100)/100)||'').replace(',','.'));
-if(isNaN(v))return;S.c0=v;S.c0t=Date.now();save();draw()}
+function cashP(r){if(S.cT0==null&&S.c0==null)return null;let T=S.cT0!=null?S.cT0:S.c0,E=S.cE0||0;
+const add=(h,v)=>{if(h=='E')E+=v;else T+=v};
+r.ms.forEach(x=>{if(x.id<=S.c0t)return;
+if(x.t=='c'&&x.pc!='S'&&!x.ini)add(x.pch,-x.cost);else if(x.t=='v'&&x.vc!='S')add(x.ch,x.rev);else if(x.t=='g'&&!x.a)add(x.cur,-x.amt)});
+S.ap.forEach(x=>{if(x.id>S.c0t)add(x.ch,x.amt)});S.pg.forEach(x=>{if(x.id>S.c0t)add(x.ch,-x.amt)});return{T,E,t:T+E}}
+function setCash(){const p=cashP(calc()),pn=t=>parseFloat(String(t==null?'':t).replace(',','.'));
+const t=pn(prompt('¿Cuánto tienes ahora en TRANSFERENCIA (CUP)?',p?Math.round(p.T*100)/100:''));if(isNaN(t))return;
+const e=pn(prompt('¿Y cuánto tienes en EFECTIVO (CUP)?',p?Math.round(p.E*100)/100:'0'));if(isNaN(e))return;
+S.cT0=t;S.cE0=e;S.c0=t+e;S.c0t=Date.now();save();draw()}
 let VE=null,SB=0,PT='int';
 const MN=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const dmn=d=>{const[y,o,da]=d.split('-').map(Number);return da+' '+MN[o-1].slice(0,3)};
@@ -390,29 +407,31 @@ const vv=has?v:g,pp=pv==null?null:(has?pv:st(sold,[cyc(list[i-1]).s,list[i-1]]).
 const ar=pp==null?'':(vv>=pp?' ▲':' ▼');
 return `<div class="lvr" onclick="VE='${e}';draw()" style="${e==E?'font-weight:700':''}"><span>${dmn(k.s)} – ${dmn(k.e)}</span><span>${sg(vv)}${ar}</span></div>`}).reverse().slice(0,12).join('');
 const dpct=pb?Math.abs(dlt)/Math.abs(pb)*100:null;
+const go=gsum(GS.filter(x=>x.f>=c.s&&x.f<=c.e)),gcard=`<div class="c"><div class="ib">🧾</div><h3>Gastos del mes</h3><div class="l">${gtx(go)||'Sin gastos anotados este mes'}</div>${go.eq>0?`<div class="kp neg" style="margin-top:6px">−${m(go.eq)} CUP</div><div class="l">en total (lo que no es CUP, a cómo lo tenías)</div><div class="l" style="margin-top:6px">Libre después de gastos: <b class="${base-go.eq>=0?'pos':'neg'}">${sg(base-go.eq)} CUP</b></div>`:''}</div>`;
 $('pM').innerHTML=`<div class="c"><div class="row" style="align-items:center"><button class="g" style="flex:none" onclick="mv(-1)">◀</button><b style="text-align:center">${dmn(c.s)} – ${dmn(c.e)} ${c.e.slice(0,4)}</b><button class="g" style="flex:none" onclick="mv(1)">▶</button></div><div class="l" style="text-align:center">${E<T?'Mes cerrado':'Mes en curso'} · se cierra el ${dmn(c.e)}</div></div>
-<div class="c"><small>Ganancia del mes</small><div class="kp ${cm.g>=0?'pos':'neg'}">${sg(cm.g)} CUP</div><div class="l">Ventas: <b>${cm.n}</b> · Vendido: <b>${m(cm.rev)}</b> CUP<br>Rinde: <b>${cm.c?m(cm.g/cm.c*100):0}%</b>${cm.best?' · Mejor venta: <b class="pos">'+sg(cm.best.g)+'</b>':''}${efl(cm.L)}</div></div>`
+<div class="c"><small>Ganancia del mes</small><div class="kp ${cm.g>=0?'pos':'neg'}">${sg(cm.g)} CUP</div><div class="l">Ventas: <b>${cm.n}</b> · Vendido: <b>${m(cm.rev)}</b> CUP<br>Rinde: <b>${cm.c?m(cm.g/cm.c*100):0}%</b>${cm.best?' · Mejor venta: <b class="pos">'+sg(cm.best.g)+'</b>':''}${efl(cm.L)}</div></div>${gcard}`
 +(has?`<div class="c"><div class="ib">🤝</div><h3>${esc(nm)}</h3><div class="l">Capital con ella este mes: <b>${m(cap)}</b><br>Le toca: <b>${m(F)}</b> (${m(S.sr)} por cada ${m(S.sb)})<br>Ya le pagué: <b>${m(pd)}</b> · Pendiente: <b>${m(pend)}</b></div>
 <div class="l" style="margin-top:8px">Libre para ti, después de pagarle:</div><div class="kp ${net>=0?'pos':'neg'}">${sg(net)} CUP</div></div>`:'<div class="c"><div class="l">Si trabajas con dinero de otra persona, anota lo que te da en 🤝 Socio y aquí verás lo que le toca cada mes.</div></div>')
 +`<div class="c"><h3>Comparado con el mes anterior</h3><div class="l">Mes anterior (${dmn(pc.s)} – ${dmn(pc.e)}): <b>${sg(pb)}</b>${has?' libre':''}<br>Este mes: <b>${sg(base)}</b>${has?' libre':''}</div><div class="kp ${dlt>=0?'pos':'neg'}" style="font-size:24px">${dlt>=0?'▲':'▼'} ${sg(dlt)} CUP${dpct==null?'':' ('+m(dpct,0)+'%)'}</div></div>`
 +(has?`<div class="c"><h3>Si hoy le doy todo</h3>`+(pat==null?'<div class="l">Pon tus CUP disponibles en Inicio (✏️ Ajustar) para ver esto.</div>':`<div class="l">Tengo (CUP + inventario): <b>${m(pat)}</b><br>Le debo: lo que me dio <b>${m(capNow)}</b> + pendiente <b>${m(pend+prevU)}</b> = <b>${m(tot)}</b></div><div class="kp ${q>=0?'pos':'neg'}" style="margin-top:8px">${sg(q)} CUP</div><div class="l">${q>=0?'me quedarían':'me faltarían'}</div>`)+'</div>':'')
 +`<div class="c"><h3>Historial de meses</h3>${rows||'<div class="l">Aún no hay datos.</div>'}<div class="l" style="margin-top:6px">${has?'Se muestra lo que te queda libre cada mes. ':''}▲ mejor y ▼ peor que el mes anterior.</div></div>`;
 const cc=cyc(curE),cg=st(sold,[cc.s,cc.e]).g,days=Math.round((new Date(cc.e+'T12:00:00')-new Date(T+'T12:00:00'))/864e5),Fc=due(curE);
-$('cycc').innerHTML=`<small>📅 Mes actual · cierra el ${dmn(cc.e)} (${days==0?'hoy':days==1?'mañana':'faltan '+days+' días'})</small><div class="kp ${cg>=0?'pos':'neg'}">${sg(cg)} CUP</div><div class="l">${has?'Le toca: <b>'+m(Fc)+'</b> · Libre para ti: <b class="'+(cg-Fc>=0?'pos':'neg')+'">'+sg(cg-Fc)+'</b>':'Ganancia de este mes hasta hoy'}</div>`}
+const gc=gsum(GS.filter(x=>x.f>=cc.s&&x.f<=cc.e));
+$('cycc').innerHTML=`<small>📅 Mes actual · cierra el ${dmn(cc.e)} (${days==0?'hoy':days==1?'mañana':'faltan '+days+' días'})</small><div class="kp ${cg>=0?'pos':'neg'}">${sg(cg)} CUP</div><div class="l">${has?'Le toca: <b>'+m(Fc)+'</b> · Libre para ti: <b class="'+(cg-Fc>=0?'pos':'neg')+'">'+sg(cg-Fc)+'</b>':'Ganancia de este mes hasta hoy'}</div>${gc.eq>0?'<div class="l">🧾 Gastos del mes: <b>'+m(gc.eq)+'</b> CUP</div>':''}`}
 function setCd(){const v=Math.floor(n('cd'));if(v>=1&&v<=31){S.cd=v;VE=null;save();draw()}}
 function setSn(){S.sn=$('sn').value.trim();save();draw()}
 function setSb(){const v=n('sb');if(v>0){S.sb=v;save();draw()}}
 function setSr(){const v=n('sr');if(v>=0){S.sr=v;save();draw()}}
 function setPT(x){PT=x;seg('sPT',x=='int'?0:1)}
-function addAp(){const a=n('ama');if(!(a>0))return alert('Pon el monto');S.ap.push({id:Date.now(),f:$('amd').value||ymd(today()),amt:a});$('ama').value='';save();draw()}
-function addPg(){const a=n('pga');if(!(a>0))return alert('Pon el monto');S.pg.push({id:Date.now(),f:$('pgd').value||ymd(today()),amt:a,tp:PT});$('pga').value='';save();draw()}
+function addAp(){const a=n('ama');if(!(a>0))return alert('Pon el monto');S.ap.push({id:Date.now(),f:$('amd').value||ymd(today()),amt:a,ch:AH});$('ama').value='';save();draw()}
+function addPg(){const a=n('pga');if(!(a>0))return alert('Pon el monto');S.pg.push({id:Date.now(),f:$('pgd').value||ymd(today()),amt:a,tp:PT,ch:GH});$('pga').value='';save();draw()}
 function delAp(id){if(confirm('¿Borrar este aporte?')){S.ap=S.ap.filter(x=>x.id!=id);save();draw()}}
 function delPg(id){if(confirm('¿Borrar este pago?')){S.pg=S.pg.filter(x=>x.id!=id);save();draw()}}
 function drawSocio(){const tot=S.ap.reduce((t,x)=>t+x.amt,0),dev=S.pg.filter(x=>x.tp=='cap').reduce((t,x)=>t+x.amt,0);
 $('apt').textContent='Me ha dado: '+m(tot)+' CUP'+(dev?' · devuelto: '+m(dev):'')+' · con ella ahora: '+m(tot-dev)+' CUP';
 const row=(x,t,f)=>`<div class="lvr"><span>${x.f} · <b>${m(x.amt)}</b>${t}</span><button class="g" style="padding:4px 10px" onclick="${f}(${x.id})">✕</button></div>`;
-$('apl').innerHTML=[...S.ap].sort((a,b)=>b.f.localeCompare(a.f)||b.id-a.id).map(x=>row(x,'','delAp')).join('')||'<div class="l">Aún no hay aportes.</div>';
-$('pgl').innerHTML=[...S.pg].sort((a,b)=>b.f.localeCompare(a.f)||b.id-a.id).map(x=>row(x,x.tp=='cap'?' · capital':' · pago del mes','delPg')).join('')||'<div class="l">Aún no hay pagos.</div>'}
+$('apl').innerHTML=[...S.ap].sort((a,b)=>b.f.localeCompare(a.f)||b.id-a.id).map(x=>row(x,x.ch=='E'?' · 💵 efectivo':' · 🏦 transferencia','delAp')).join('')||'<div class="l">Aún no hay aportes.</div>';
+$('pgl').innerHTML=[...S.pg].sort((a,b)=>b.f.localeCompare(a.f)||b.id-a.id).map(x=>row(x,(x.tp=='cap'?' · capital':' · pago del mes')+(x.ch=='E'?' · 💵':' · 🏦'),'delPg')).join('')||'<div class="l">Aún no hay pagos.</div>'}
 /* ---- arranque ---- */
 function boot(){if(PF.cur&&S.as&&S.as.length){buildAll();go('i');return}
 if(PF.cur){wShowNew(true);return}
